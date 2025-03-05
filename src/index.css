@@ -1,13 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap");
 @import "tailwindcss";
 
 @theme {
   --color-primary: #ff6c1f; /*orange*/
   --color-secondary: #ffeee0; /*background*/
   --color-secondaryLight: #f9f4f0; /*background-light*/
-  --color-secondaryLight: #f9f4f0; /*background-light*/
-  --color-dark: #f9f4f0; /*gray shade*/
 }
 
-* {
-  font-family: "Poppins", sans-serif;
+html {
+  font-family: "Mulish", sans-serif;
 }
