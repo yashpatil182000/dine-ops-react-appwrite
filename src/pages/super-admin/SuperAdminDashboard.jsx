@@ -1,7 +1,11 @@
 import React from "react";
 
 function SuperAdminDashboard() {
-  return <></>;
+  return (
+    <>
+      <p>Super Admin Dashboard</p>
+    </>
+  );
 }
 
 export default SuperAdminDashboard;
