@@ -7,10 +7,16 @@ import Logo from "../components/Logo";
 import { databases } from "../appwrite/appwriteConfig";
 import { Query } from "appwrite";
 import { toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
+import { useDispatch } from "react-redux";
+import { login } from "../store/authSlice";
 
 function Login() {
   const [user, setUser] = useState({ email: "", password: "" });
   const [error, setError] = useState({ emailError: "", passwordError: "" });
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const passwordRegex =
@@ -50,10 +56,10 @@ function Login() {
 
       if (response.documents.length > 0) {
         console.log("User Found:", response.documents[0]);
-        toast.success(`Hello! ${response.documents[0].name}`, {
-          position: "top-right",
-          autoClose: 3000,
-        });
+        const loggedinUser = response.documents[0];
+        dispatch(login(loggedinUser));
+
+        navigate("/super-admin-dashboard");
       } else {
         toast.error("No user found with this email.", {
           position: "top-right",
