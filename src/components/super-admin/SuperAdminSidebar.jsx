@@ -43,12 +43,12 @@ function SuperAdminSidebar() {
     <>
       <div className="h-screen bg-white w-[23%] shadow-xl shadow-black/10 flex flex-col  items-center py-3">
         <Logo />
-        <div className="flex flex-col justify-between h-[85%] w-[85%]">
+        <div className="flex flex-col justify-between h-[90%] w-[85%]">
           <div className="mt-10">
             {sidebarLink.map((link, id) => (
               <Link to={link.path} key={id}>
                 <div
-                  className={`flex mb-3 items-center gap-2 px-5 py-2 rounded-lg text-gray-600 hover:bg-secondary hover:text-primary hover:font-semibold duration-200 ${
+                  className={`flex mb-3 items-center gap-2 px-5 py-2 rounded-lg text-gray-500 hover:bg-secondary hover:text-primary hover:font-semibold duration-200 ${
                     location.pathname == link.path
                       ? "bg-secondary text-primary font-semibold"
                       : null
