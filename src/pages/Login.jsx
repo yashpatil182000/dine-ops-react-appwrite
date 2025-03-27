@@ -4,7 +4,7 @@ import Button from "../components/Button";
 import { BiLogIn } from "react-icons/bi";
 import Logo from "../components/Logo";
 
-import { databases } from "../appwrite/appwriteConfig";
+import { account, databases } from "../appwrite/appwriteConfig";
 import { Query } from "appwrite";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -57,9 +57,23 @@ function Login() {
       if (response.documents.length > 0) {
         console.log("User Found:", response.documents[0]);
         const loggedinUser = response.documents[0];
-        dispatch(login(loggedinUser));
+        const promise = account.createEmailPasswordSession(
+          user.email,
+          user.password
+        );
+        promise.then(
+          function (response) {
+            console.log("session started :: ", response);
+            dispatch(login(loggedinUser));
+          },
+          function (error) {
+            console.log("session error :: ", error);
+          }
+        );
 
-        navigate("/super-admin-dashboard");
+        if (loggedinUser.role === "super-admin") {
+          navigate("/super-admin-dashboard");
+        }
       } else {
         toast.error("No user found with this email.", {
           position: "top-right",
