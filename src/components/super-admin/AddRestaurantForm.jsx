@@ -115,17 +115,21 @@ function AddRestaurantForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validateForm()) {
+    const isValid = validateForm(); // Run validation first
+
+    if (!isValid) {
       toast.error("Please fix the errors before submitting.");
       return;
     }
 
+    setLoading(true); // ✅ Start loading
+
     const isUnique = await checkForDuplicate();
     if (!isUnique) {
-      setLoading(false); // Stop loading if duplicate found
+      setLoading(false); // ✅ Stop loading if duplicate found
       return;
     }
-    setLoading(true); // ✅ Start loading
+
     try {
       // Step 1: Create Restaurant Document
       const restaurantResponse = await databases.createDocument(
@@ -174,8 +178,7 @@ function AddRestaurantForm() {
         managerPassword: "",
       });
 
-      // Clear errors
-      setErrors({});
+      setErrors({}); // Clear errors
     } catch (error) {
       console.error("Error:", error);
       toast.error("Something went wrong! Please try again.");
@@ -186,12 +189,6 @@ function AddRestaurantForm() {
   return (
     <>
       <ToastContainer />
-      <div className="flex gap-2 items-center">
-        <BsBuildingAdd size={22} color="#ff6c1f" />
-        <p className="font-urbanist font-semibold text-stone-500 text-2xl">
-          Add New Restaurant
-        </p>
-      </div>
 
       <div className="bg-white mt-8 me-10 p-5 border-e-8 border-primary rounded-s-2xl shadow-lg shadow-stone-300">
         <form onSubmit={handleSubmit}>

@@ -41,9 +41,9 @@ function SuperAdminSidebar() {
 
   return (
     <>
-      <div className="min-h-max bg-white w-[23%] shadow-xl shadow-black/10 flex flex-col  items-center py-3">
+      <div className="h-screen bg-white w-[23%] shadow-xl shadow-black/10 flex flex-col  items-center py-3">
         <Logo />
-        <div className="flex flex-col justify-between h-[80%] w-[85%]">
+        <div className="flex flex-col justify-between h-[90%] w-[85%]">
           <div className="mt-10">
             {sidebarLink.map((link, id) => (
               <Link to={link.path} key={id}>
