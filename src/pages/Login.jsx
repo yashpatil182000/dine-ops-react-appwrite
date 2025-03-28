@@ -57,6 +57,13 @@ function Login() {
       if (response.documents.length > 0) {
         console.log("User Found:", response.documents[0]);
         const loggedinUser = response.documents[0];
+
+        if (loggedinUser.role === "super-admin") {
+          navigate("/super-admin-dashboard");
+        } else if (loggedinUser.role === "manager") {
+          navigate("/manager-dashboard");
+        }
+
         const promise = account.createEmailPasswordSession(
           user.email,
           user.password
@@ -70,10 +77,6 @@ function Login() {
             console.log("session error :: ", error);
           }
         );
-
-        if (loggedinUser.role === "super-admin") {
-          navigate("/super-admin-dashboard");
-        }
       } else {
         toast.error("No user found with this email.", {
           position: "top-right",
