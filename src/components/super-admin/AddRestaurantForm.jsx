@@ -39,26 +39,41 @@ function AddRestaurantForm() {
 
   // Validate form
   const validateForm = () => {
-    let newErrors = {};
+    setErrors((prevErrors) => {
+      let newErrors = { ...prevErrors };
 
-    if (!formData.restaurantName.trim())
-      newErrors.restaurantName = "Restaurant name is required";
-    if (!formData.restaurantAddress.trim())
-      newErrors.restaurantAddress = "Restaurant address is required";
-    if (!formData.managerName.trim())
-      newErrors.managerName = "Manager name is required";
-    if (!formData.managerPhone.trim() || formData.managerPhone.length !== 10)
-      newErrors.managerPhone = "Enter a valid 10-digit phone number";
+      newErrors = {}; // Reset errors
 
-    if (!emailRegex.test(formData.managerEmail))
-      newErrors.managerEmail = "Enter a valid email";
+      if (!formData.restaurantName.trim()) {
+        newErrors.restaurantName = "Restaurant name is required";
+      }
+      if (!formData.restaurantAddress.trim()) {
+        newErrors.restaurantAddress = "Restaurant address is required";
+      }
+      if (!formData.managerName.trim()) {
+        newErrors.managerName = "Manager name is required";
+      }
+      if (
+        !formData.managerPhone.trim() ||
+        formData.managerPhone.length !== 10
+      ) {
+        newErrors.managerPhone = "Enter a valid 10-digit phone number";
+      }
+      if (!formData.managerPassword.trim()) {
+        newErrors.managerPassword = "Password is required";
+      }
+      if (!emailRegex.test(formData.managerEmail)) {
+        newErrors.managerEmail = "Enter a valid email";
+      }
+      if (!passwordRegex.test(formData.managerPassword)) {
+        newErrors.managerPassword =
+          "Password must be at least 8 characters long, include uppercase, lowercase, number, and special character";
+      }
 
-    if (!passwordRegex.test(formData.managerPassword))
-      newErrors.managerPassword =
-        "Password must be at least 8 characters long, include uppercase, lowercase, number, and special character";
+      return newErrors;
+    });
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // Return true if no errors
+    return Object.keys(errors).length === 0; // Ensure errors are updated before returning
   };
 
   const checkForDuplicate = async () => {
@@ -99,7 +114,7 @@ function AddRestaurantForm() {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // ✅ Start loading
+
     if (!validateForm()) {
       toast.error("Please fix the errors before submitting.");
       return;
@@ -110,7 +125,7 @@ function AddRestaurantForm() {
       setLoading(false); // Stop loading if duplicate found
       return;
     }
-
+    setLoading(true); // ✅ Start loading
     try {
       // Step 1: Create Restaurant Document
       const restaurantResponse = await databases.createDocument(
@@ -188,18 +203,30 @@ function AddRestaurantForm() {
             </p>
           </div>
           <div className="w-full flex gap-10 mt-5">
-            <Input
-              label="Name"
-              name="restaurantName"
-              value={formData.restaurantName}
-              onChange={handleChange}
-            />
-            <Input
-              label="Address"
-              name="restaurantAddress"
-              value={formData.restaurantAddress}
-              onChange={handleChange}
-            />
+            <div className="w-[50%]">
+              <Input
+                label="Name"
+                name="restaurantName"
+                value={formData.restaurantName}
+                onChange={handleChange}
+              />
+              {errors.restaurantName && (
+                <p className="text-red-500 text-sm">{errors.restaurantName}</p>
+              )}
+            </div>
+            <div className="w-[50%]">
+              <Input
+                label="Address"
+                name="restaurantAddress"
+                value={formData.restaurantAddress}
+                onChange={handleChange}
+              />
+              {errors.restaurantAddress && (
+                <p className="text-red-500 text-sm">
+                  {errors.restaurantAddress}
+                </p>
+              )}
+            </div>
           </div>
 
           {/* Manager Information */}
@@ -210,18 +237,28 @@ function AddRestaurantForm() {
             </p>
           </div>
           <div className="w-full flex gap-10 mt-5">
-            <Input
-              label="Name"
-              name="managerName"
-              value={formData.managerName}
-              onChange={handleChange}
-            />
-            <Input
-              label="Phone No."
-              name="managerPhone"
-              value={formData.managerPhone}
-              onChange={handleChange}
-            />
+            <div className="w-[50%]">
+              <Input
+                label="Name"
+                name="managerName"
+                value={formData.managerName}
+                onChange={handleChange}
+              />
+              {errors.managerName && (
+                <p className="text-red-500 text-sm">{errors.managerName}</p>
+              )}
+            </div>
+            <div className="w-[50%]">
+              <Input
+                label="Phone No."
+                name="managerPhone"
+                value={formData.managerPhone}
+                onChange={handleChange}
+              />
+              {errors.managerPhone && (
+                <p className="text-red-500 text-sm">{errors.managerPhone}</p>
+              )}
+            </div>
           </div>
 
           {/* Manager Credentials */}
@@ -232,18 +269,29 @@ function AddRestaurantForm() {
             </p>
           </div>
           <div className="w-full flex gap-10 mt-5">
-            <Input
-              label="Email"
-              name="managerEmail"
-              value={formData.managerEmail}
-              onChange={handleChange}
-            />
-            <Input
-              label="Password"
-              name="managerPassword"
-              value={formData.managerPassword}
-              onChange={handleChange}
-            />
+            <div className="w-[50%]">
+              <Input
+                label="Email"
+                name="managerEmail"
+                value={formData.managerEmail}
+                onChange={handleChange}
+              />
+              {errors.managerEmail && (
+                <p className="text-red-500 text-sm">{errors.managerEmail}</p>
+              )}
+            </div>
+
+            <div className="w-[50%]">
+              <Input
+                label="Password"
+                name="managerPassword"
+                value={formData.managerPassword}
+                onChange={handleChange}
+              />
+              {errors.managerPassword && (
+                <p className="text-red-500 text-sm">{errors.managerPassword}</p>
+              )}
+            </div>
           </div>
 
           <div className="w-full flex justify-center mt-10">
