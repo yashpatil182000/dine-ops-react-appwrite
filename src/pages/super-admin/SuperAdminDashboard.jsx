@@ -5,6 +5,7 @@ import RestaurantCard from "../../components/super-admin/RestaurantCard";
 import { BsBuilding } from "react-icons/bs";
 
 import { databases } from "../../appwrite/appwriteConfig";
+import IconTextComponent from "../../components/IconTextComponent";
 
 function SuperAdminDashboard() {
   const userData = useSelector((state) => state.auth.userData);
@@ -27,8 +28,6 @@ function SuperAdminDashboard() {
     }
   };
 
-  console.log(restaurants);
-
   useEffect(() => {
     fetchRestaurants();
   }, []);
@@ -39,10 +38,12 @@ function SuperAdminDashboard() {
         <SuperAdminSidebar />
         <div className="w-full py-3">
           <div className="flex gap-2 items-center">
-            <BsBuilding size={22} color="#ff6c1f" />
-            <p className="font-urbanist font-semibold text-stone-500 text-2xl">
-              All Restaurants
-            </p>
+            <div>
+              <IconTextComponent
+                text={"All Restaurants"}
+                icon={<BsBuilding size={22} color="#ff6c1f" />}
+              />
+            </div>
           </div>
           <div className="mt-8 flex flex-wrap gap-5">
             {restaurants ? (

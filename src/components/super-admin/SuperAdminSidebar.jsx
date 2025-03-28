@@ -41,9 +41,9 @@ function SuperAdminSidebar() {
 
   return (
     <>
-      <div className="h-screen bg-white w-[23%] shadow-xl shadow-black/10 flex flex-col  items-center py-3">
+      <div className="min-h-max bg-white w-[23%] shadow-xl shadow-black/10 flex flex-col  items-center py-3">
         <Logo />
-        <div className="flex flex-col justify-between h-[90%] w-[85%]">
+        <div className="flex flex-col justify-between h-[80%] w-[85%]">
           <div className="mt-10">
             {sidebarLink.map((link, id) => (
               <Link to={link.path} key={id}>
@@ -67,7 +67,7 @@ function SuperAdminSidebar() {
               <FaRegCircleUser color="#ff6c1f" size={25} />
               <p>{userData && userData.name}</p>
             </div>
-            <div className="mt-2 mb-5 text-sm text-gray-600">
+            <div className="mt-2 ms-8 mb-5 text-sm text-gray-600">
               <p>{userData && userData.role}</p>
             </div>
             <div>
