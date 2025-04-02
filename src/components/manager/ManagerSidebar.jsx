@@ -16,10 +16,10 @@ import { account } from "../../appwrite/appwriteConfig";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { logout } from "../../store/authSlice";
+import { clearRestaurant } from "../../store/restaurantSlice";
 
 function ManagerSidebar() {
   const userData = useSelector((state) => state.auth.userData);
-  console.log("User from Store::", userData);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -29,6 +29,7 @@ function ManagerSidebar() {
     await account.deleteSession("current");
     console.log("session deleted");
     dispatch(logout());
+    dispatch(clearRestaurant());
 
     navigate("/");
   };

@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { login } from "../store/authSlice";
+import { setRestaurant } from "../store/restaurantSlice";
 
 function Login() {
   const [user, setUser] = useState({ email: "", password: "" });
@@ -24,6 +25,16 @@ function Login() {
 
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
+  const startSession = async () => {
+    try {
+      await account.createEmailPasswordSession(user.email, user.password);
+      return true;
+    } catch (error) {
+      console.log("session error :: ", error);
+      return false;
+    }
   };
 
   const handleLogin = async () => {
@@ -48,6 +59,16 @@ function Login() {
     }
 
     try {
+      const sessionStarted = await startSession();
+
+      if (!sessionStarted) {
+        toast.error("Incorrect Email or Password", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+        return;
+      }
+
       const response = await databases.listDocuments(
         import.meta.env.VITE_APPWRITE_DATABASE_ID,
         import.meta.env.VITE_APPWRITE_USERS_COLLECTION_ID,
@@ -55,28 +76,31 @@ function Login() {
       );
 
       if (response.documents.length > 0) {
-        console.log("User Found:", response.documents[0]);
         const loggedinUser = response.documents[0];
+        dispatch(login(loggedinUser));
 
         if (loggedinUser.role === "super-admin") {
           navigate("/super-admin-dashboard");
-        } else if (loggedinUser.role === "manager") {
-          navigate("/manager-dashboard");
+          return;
         }
 
-        const promise = account.createEmailPasswordSession(
-          user.email,
-          user.password
-        );
-        promise.then(
-          function (response) {
-            console.log("session started :: ", response);
-            dispatch(login(loggedinUser));
-          },
-          function (error) {
-            console.log("session error :: ", error);
+        if (loggedinUser.role !== "super-admin") {
+          try {
+            const restaurantResponse = await databases.listDocuments(
+              import.meta.env.VITE_APPWRITE_DATABASE_ID,
+              import.meta.env.VITE_APPWRITE_RESTAURANTS_COLLECTION_ID,
+              [Query.equal("$id", loggedinUser.restaurant_id)]
+            );
+
+            if (restaurantResponse.documents.length > 0) {
+              const restaurantInfo = restaurantResponse.documents[0];
+              dispatch(setRestaurant(restaurantInfo));
+            }
+          } catch (error) {
+            console.log("Error Fetching Restaurant :: ", error);
           }
-        );
+          navigate("/manager-dashboard");
+        }
       } else {
         toast.error("No user found with this email.", {
           position: "top-right",

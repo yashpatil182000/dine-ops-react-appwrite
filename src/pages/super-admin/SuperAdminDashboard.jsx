@@ -49,6 +49,7 @@ function SuperAdminDashboard() {
             {restaurants ? (
               restaurants.map((restaurant, index) => (
                 <RestaurantCard
+                  key={index}
                   restaurantName={restaurant.restaurant_name}
                   restaurantAddress={restaurant.restaurant_address}
                   managerName={restaurant.manager_name}

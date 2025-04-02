@@ -5,6 +5,7 @@ import { account, databases } from "./appwrite/appwriteConfig";
 import { useDispatch } from "react-redux";
 import { Query } from "appwrite";
 import { setUser } from "./store/authSlice";
+import { setRestaurant } from "./store/restaurantSlice";
 
 function App() {
   const dispatch = useDispatch();
@@ -12,7 +13,7 @@ function App() {
     const checkActiveSession = async () => {
       try {
         const authUser = await account.get();
-        console.log(authUser);
+        // console.log(authUser);
 
         if (!authUser) {
           console.log("No active session");
@@ -30,7 +31,23 @@ function App() {
         }
 
         const loggedInUser = response.documents[0];
-        console.log(loggedInUser);
+
+        if (loggedInUser.role !== "super-admin") {
+          try {
+            const restaurantResponse = await databases.listDocuments(
+              import.meta.env.VITE_APPWRITE_DATABASE_ID,
+              import.meta.env.VITE_APPWRITE_RESTAURANTS_COLLECTION_ID,
+              [Query.equal("$id", loggedInUser.restaurant_id)]
+            );
+
+            if (restaurantResponse.documents.length > 0) {
+              const restaurantInfo = restaurantResponse.documents[0];
+              dispatch(setRestaurant(restaurantInfo));
+            }
+          } catch (error) {
+            console.log("Error Fetching Restaurant :: ", error);
+          }
+        }
 
         // Dispatch user data to Redux store
         dispatch(setUser(loggedInUser));
