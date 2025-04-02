@@ -1,13 +1,15 @@
 import { RouterProvider } from "react-router-dom";
 import routes from "./router/routes";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { account, databases } from "./appwrite/appwriteConfig";
 import { useDispatch } from "react-redux";
 import { Query } from "appwrite";
 import { setUser } from "./store/authSlice";
 import { setRestaurant } from "./store/restaurantSlice";
+import { HashLoader } from "react-spinners";
 
 function App() {
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   useEffect(() => {
     const checkActiveSession = async () => {
@@ -17,6 +19,7 @@ function App() {
 
         if (!authUser) {
           console.log("No active session");
+          setLoading(false);
           return;
         }
         const response = await databases.listDocuments(
@@ -27,6 +30,7 @@ function App() {
 
         if (response.documents.length === 0) {
           console.error("User not found in database.");
+          setLoading(false);
           return;
         }
 
@@ -46,6 +50,8 @@ function App() {
             }
           } catch (error) {
             console.log("Error Fetching Restaurant :: ", error);
+          } finally {
+            setLoading(false); // ✅ Ensure loading state is updated
           }
         }
 
@@ -53,11 +59,25 @@ function App() {
         dispatch(setUser(loggedInUser));
       } catch (error) {
         console.error("Error fetching user session");
+      } finally {
+        setLoading(false);
       }
     };
 
     checkActiveSession();
   }, [dispatch]);
+
+  if (loading) {
+    return (
+      <span className="text-xl text-gray-600 flex flex-col items-center gap-5 mt-72 ">
+        <HashLoader color="#ff6c1f" />
+        <p className="text-xl font-semibold">
+          Preparing your dashboard... Almost there !
+        </p>
+      </span>
+    );
+  }
+
   return <RouterProvider router={routes} />;
 }
 

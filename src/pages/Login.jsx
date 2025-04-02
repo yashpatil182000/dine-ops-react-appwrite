@@ -7,9 +7,9 @@ import Logo from "../components/Logo";
 import { account, databases } from "../appwrite/appwriteConfig";
 import { Query } from "appwrite";
 import { toast, ToastContainer } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../store/authSlice";
 import { setRestaurant } from "../store/restaurantSlice";
 
@@ -111,6 +111,21 @@ function Login() {
       console.log("Error::", error);
     }
   };
+
+  const userData = useSelector((state) => state.auth.userData);
+
+  if (userData) {
+    return (
+      <Navigate
+        to={
+          userData.role === "super-admin"
+            ? "/super-admin-dashboard"
+            : "/manager-dashboard"
+        }
+        replace
+      />
+    );
+  }
 
   return (
     <>
