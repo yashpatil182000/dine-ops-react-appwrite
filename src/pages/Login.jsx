@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import { BiLogIn } from "react-icons/bi";
-import Logo from "../components/Logo";
+import Logo2 from "../assets/dine-ops-logo.gif";
 
 import { account, databases } from "../appwrite/appwriteConfig";
 import { Query } from "appwrite";
@@ -134,7 +134,12 @@ function Login() {
         <div className="mt-32 h-fit bg-white w-[90%] md:w-[45%] pt-5 pb-12 border-e-8 border-primary rounded-s-2xl shadow-lg shadow-stone-300">
           <div className="flex flex-col items-center gap-5">
             <div className="w-[65%] flex justify-center  mb-4">
-              <Logo />
+              <div className="flex items-center w-fit md:px-3">
+                <img src={Logo2} width={40} alt="" className="block" />
+                <p className="text-4xl font-extrabold text-primary font-urbanist ">
+                  DineOPs
+                </p>
+              </div>
             </div>
             <div className="w-[85%] md:w-[65%] flex items-center gap-2">
               <span>

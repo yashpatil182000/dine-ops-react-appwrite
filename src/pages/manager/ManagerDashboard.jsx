@@ -15,12 +15,12 @@ function ManagerDashboard() {
 
   return (
     <>
-      <div className="bg-secondaryLight flex gap-10 ">
+      <div className="bg-secondaryLight flex gap-5 lg:gap-10 ">
         <ManagerSidebar />
         <div className="w-full py-3">
           <IconTextComponent
             text={"Manager Dashboard"}
-            icon={<MdOutlineDashboard size={22} color="#ff6c1f" />}
+            icon={<MdOutlineDashboard size={24} color="#ff6c1f" />}
           />
         </div>
       </div>
