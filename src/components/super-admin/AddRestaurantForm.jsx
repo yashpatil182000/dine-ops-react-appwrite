@@ -39,41 +39,36 @@ function AddRestaurantForm() {
 
   // Validate form
   const validateForm = () => {
-    setErrors((prevErrors) => {
-      let newErrors = { ...prevErrors };
+    let newErrors = {};
 
-      newErrors = {}; // Reset errors
+    if (!formData.restaurantName.trim()) {
+      newErrors.restaurantName = "Restaurant name is required";
+    }
+    if (!formData.restaurantAddress.trim()) {
+      newErrors.restaurantAddress = "Restaurant address is required";
+    }
+    if (!formData.managerName.trim()) {
+      newErrors.managerName = "Manager name is required";
+    }
+    if (!formData.managerPhone.trim() || formData.managerPhone.length !== 10) {
+      newErrors.managerPhone = "Enter a valid 10-digit phone number";
+    }
+    if (
+      !formData.managerEmail.trim() ||
+      !emailRegex.test(formData.managerEmail)
+    ) {
+      newErrors.managerEmail = "Enter a valid email";
+    }
+    if (!formData.managerPassword.trim()) {
+      newErrors.managerPassword = "Password is required";
+    } else if (!passwordRegex.test(formData.managerPassword)) {
+      newErrors.managerPassword =
+        "Password must be at least 8 characters long, include uppercase, lowercase, number, and special character";
+    }
 
-      if (!formData.restaurantName.trim()) {
-        newErrors.restaurantName = "Restaurant name is required";
-      }
-      if (!formData.restaurantAddress.trim()) {
-        newErrors.restaurantAddress = "Restaurant address is required";
-      }
-      if (!formData.managerName.trim()) {
-        newErrors.managerName = "Manager name is required";
-      }
-      if (
-        !formData.managerPhone.trim() ||
-        formData.managerPhone.length !== 10
-      ) {
-        newErrors.managerPhone = "Enter a valid 10-digit phone number";
-      }
-      if (!formData.managerPassword.trim()) {
-        newErrors.managerPassword = "Password is required";
-      }
-      if (!emailRegex.test(formData.managerEmail)) {
-        newErrors.managerEmail = "Enter a valid email";
-      }
-      if (!passwordRegex.test(formData.managerPassword)) {
-        newErrors.managerPassword =
-          "Password must be at least 8 characters long, include uppercase, lowercase, number, and special character";
-      }
+    setErrors(newErrors); // Update state
 
-      return newErrors;
-    });
-
-    return Object.keys(errors).length === 0; // Ensure errors are updated before returning
+    return Object.keys(newErrors).length === 0; // ✅ Return true if no errors
   };
 
   const checkForDuplicate = async () => {
