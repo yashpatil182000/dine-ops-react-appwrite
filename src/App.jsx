@@ -69,9 +69,9 @@ function App() {
 
   if (loading) {
     return (
-      <span className="text-xl text-gray-600 flex flex-col items-center gap-5 mt-72 ">
+      <span className=" w-[75%] text-xl text-gray-600 flex flex-col  items-center gap-5 mt-52 lg:mt-64 mx-auto ">
         <HashLoader color="#ff6c1f" />
-        <p className="text-xl font-semibold">
+        <p className="text-xl font-semibold text-center">
           Preparing your dashboard... Almost there !
         </p>
       </span>

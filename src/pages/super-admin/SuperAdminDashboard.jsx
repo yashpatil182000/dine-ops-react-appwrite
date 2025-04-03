@@ -9,7 +9,7 @@ import IconTextComponent from "../../components/IconTextComponent";
 
 function SuperAdminDashboard() {
   const userData = useSelector((state) => state.auth.userData);
-  console.log("User from Store::", userData);
+  // console.log("User from Store::", userData);
 
   const [restaurants, setRestaurants] = useState([]);
 
@@ -34,9 +34,11 @@ function SuperAdminDashboard() {
 
   return (
     <>
-      <div className="bg-secondaryLight flex gap-10 ">
-        <SuperAdminSidebar />
-        <div className="w-full py-3">
+      <div className="h-screen bg-secondaryLight flex gap-5 lg:gap-10 ">
+        <div className="fixed w-fit md:w-[100%] lg:w-[73%]">
+          <SuperAdminSidebar />
+        </div>
+        <div className="w-full ml-22 md:ml-48 lg:ml-52 xl:ml-64 2xl:ml-[475px] py-3">
           <div className="flex gap-2 items-center">
             <div>
               <IconTextComponent
@@ -45,16 +47,17 @@ function SuperAdminDashboard() {
               />
             </div>
           </div>
-          <div className="mt-8 flex flex-wrap gap-5">
+          <div className="w-[95%] mt-8 flex flex-wrap">
             {restaurants ? (
               restaurants.map((restaurant, index) => (
-                <RestaurantCard
-                  key={index}
-                  restaurantName={restaurant.restaurant_name}
-                  restaurantAddress={restaurant.restaurant_address}
-                  managerName={restaurant.manager_name}
-                  managerPhoneNo={restaurant.manager_phone}
-                />
+                <div key={index} className="w-full ">
+                  <RestaurantCard
+                    restaurantName={restaurant.restaurant_name}
+                    restaurantAddress={restaurant.restaurant_address}
+                    managerName={restaurant.manager_name}
+                    managerPhoneNo={restaurant.manager_phone}
+                  />
+                </div>
               ))
             ) : (
               <p>No Restaurants to show</p>

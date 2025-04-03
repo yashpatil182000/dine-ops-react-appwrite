@@ -5,7 +5,7 @@ function IconTextComponent({ icon, text }) {
     <>
       <div className="flex gap-2 items-center">
         <span>{icon}</span>
-        <p className="font-urbanist font-semibold text-stone-500 text-lg sm:text-2xl">
+        <p className="font-urbanist font-semibold text-stone-600 text-lg sm:text-2xl">
           {text}
         </p>
       </div>

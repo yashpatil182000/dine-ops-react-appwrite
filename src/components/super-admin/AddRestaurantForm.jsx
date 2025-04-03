@@ -190,17 +190,17 @@ function AddRestaurantForm() {
     <>
       <ToastContainer />
 
-      <div className="bg-white mt-8 me-10 p-5 border-e-8 border-primary rounded-s-2xl shadow-lg shadow-stone-300">
+      <div className="w-full h-fit bg-white mt-8 me-10 p-5 border-e-8 border-primary rounded-s-2xl shadow-lg shadow-stone-300">
         <form onSubmit={handleSubmit}>
           {/* Restaurant Information */}
-          <div className="flex gap-1 items-center">
+          <div className="flex gap-1 items-center w-full">
             <LiaHotelSolid size={25} color="#606060" />
             <p className="font-bold text-primary text-lg">
               Restaurant Information
             </p>
           </div>
-          <div className="w-full flex gap-10 mt-5">
-            <div className="w-[50%]">
+          <div className="w-full flex flex-col lg:flex-row gap-10 mt-5">
+            <div className="w-full lg:w-[50%]">
               <Input
                 label="Name"
                 name="restaurantName"
@@ -211,7 +211,7 @@ function AddRestaurantForm() {
                 <p className="text-red-500 text-sm">{errors.restaurantName}</p>
               )}
             </div>
-            <div className="w-[50%]">
+            <div className="w-full lg:w-[50%]">
               <Input
                 label="Address"
                 name="restaurantAddress"
@@ -233,8 +233,8 @@ function AddRestaurantForm() {
               Manager Information
             </p>
           </div>
-          <div className="w-full flex gap-10 mt-5">
-            <div className="w-[50%]">
+          <div className="w-full flex flex-col lg:flex-row gap-10 mt-5">
+            <div className="w-full lg:w-[50%]">
               <Input
                 label="Name"
                 name="managerName"
@@ -245,7 +245,7 @@ function AddRestaurantForm() {
                 <p className="text-red-500 text-sm">{errors.managerName}</p>
               )}
             </div>
-            <div className="w-[50%]">
+            <div className="w-full lg:w-[50%]">
               <Input
                 label="Phone No."
                 name="managerPhone"
@@ -262,11 +262,11 @@ function AddRestaurantForm() {
           <div className="flex gap-1 items-center mt-10">
             <SiFusionauth size={18} color="#606060" />
             <p className="font-bold text-primary text-lg">
-              Manager Log In Credentials
+              Manager LogIn Credentials
             </p>
           </div>
-          <div className="w-full flex gap-10 mt-5">
-            <div className="w-[50%]">
+          <div className="w-full flex flex-col lg:flex-row gap-10 mt-5">
+            <div className="w-full lg:w-[50%]">
               <Input
                 label="Email"
                 name="managerEmail"
@@ -278,7 +278,7 @@ function AddRestaurantForm() {
               )}
             </div>
 
-            <div className="w-[50%]">
+            <div className="w-full lg:w-[50%]">
               <Input
                 label="Password"
                 name="managerPassword"
