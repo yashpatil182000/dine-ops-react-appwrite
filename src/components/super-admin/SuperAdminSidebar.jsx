@@ -4,6 +4,8 @@ import { BsBuildingAdd } from "react-icons/bs";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { MdOutlineDashboard } from "react-icons/md";
 
+import SuperAdminProfile from "../../assets/super-admin-profile.png";
+
 import Button from "../Button";
 import { account } from "../../appwrite/appwriteConfig";
 import { useSelector, useDispatch } from "react-redux";
@@ -73,51 +75,69 @@ function SuperAdminSidebar() {
             ))}
           </div>
 
-          <div className="bg-secondary p-3 rounded-lg w-full px-3 mx-auto relative">
-            <div className="flex gap-2 justify-center md:justify-start">
+          <div className="bg-secondary py-3 rounded-lg w-full mx-auto relative hidden md:block shadow-md shadow-stone-300 ">
+            <div className="flex gap-2 justify-center">
               <div
-                className="mt-2 md:mt-1 md:pointer-events-none"
+                className="mt-2 md:mt-1 md:pointer-events-none drop-shadow-xl absolute -top-18 left-auto"
                 onClick={handleProfileMenu}
               >
-                <FaRegCircleUser color="#ff6c1f" size={22} />
+                {" "}
+                <img
+                  src={SuperAdminProfile}
+                  className="mt-9 lg:mt-0 w-16 lg:w-24"
+                  alt=""
+                />
               </div>
-              <p className="hidden md:block md:text-md font-bold text-stone-600 uppercase">
+              <p className="mt-7 lg:mt-5 text-center hidden md:block md:text-sm font-bold text-stone-600 uppercase">
                 {userData && userData.name}
               </p>
             </div>
-            <div className="">
-              <p className="hidden md:block md:ms-7 lg:ms-8 md:text-sm capitalize font-semibold text-stone-500 ">
+            <div className="mb-1 lg:mb-0">
+              <p className="text-center hidden md:block md:text-sm capitalize font-semibold text-stone-500 ">
                 {userData && userData.role}
               </p>
             </div>
-            <div className="hidden md:block ms-7 mt-4 ">
-              <Button text="logout" onClick={handleLogout} />
-            </div>
 
-            {/*---------Profile Menu-----------*/}
+            <div className="hidden md:flex justify-center w-full mt-2 lg:mt-4 ">
+              <Button
+                text="LOG OUT"
+                bgColor="bg-stone-800"
+                onClick={handleLogout}
+              />
+            </div>
+          </div>
+          {/*---------Profile Menu-----------*/}
+          <div
+            className="block md:hidden relative mb-8 md:pointer-events-none drop-shadow-xl"
+            onClick={handleProfileMenu}
+          >
+            {" "}
+            <img src={SuperAdminProfile} className="w-24" alt="" />
             <div
-              className={`absolute z-50 -top-10 -right-42 bg-secondary py-2 px-5 rounded-lg   shadow-xl shadow-black/10
-               transition-opacity duration-300 ease-in-out ${
-                 isOpen
-                   ? "opacity-100 scale-100"
-                   : "opacity-0 invisible scale-95 pointer-events-none"
-               }`}
+              className={`absolute -top-15 -right-48 bg-secondary py-2 px-5 rounded-lg z-0  shadow-xl shadow-black/10
+                 transition-opacity duration-300 ease-in-out ${
+                   isOpen
+                     ? "opacity-100 scale-100"
+                     : "opacity-0 invisible scale-95 pointer-events-none"
+                 }`}
             >
-              <div className="flex gap-2 items-center justify-center md:justify-start">
-                <div className="">
-                  <FaRegCircleUser color="#ff6c1f" size={16} />
-                </div>
-                <p className=" md:text-md font-bold text-stone-600 uppercase">
+              <div className="">
+                <p className="text-md text-center font-bold text-stone-600 uppercase">
                   {userData && userData.name}
                 </p>
               </div>
               <div className="">
-                <p className="ms-6 text-sm capitalize font-semibold text-stone-500 ">
+                <p className="text-center text-sm mb-2 capitalize font-semibold text-stone-500 ">
                   {userData && userData.role}
                 </p>
               </div>
-              <div className="ms-5 mt-3">
-                <Button text="logout" onClick={handleLogout} />
+
+              <div className="ms-5 mt-2">
+                <Button
+                  text="LOG OUT"
+                  bgColor="bg-stone-800"
+                  onClick={handleLogout}
+                />
               </div>
             </div>
           </div>
