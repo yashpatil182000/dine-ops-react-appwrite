@@ -9,7 +9,7 @@ import { ID } from "appwrite";
 import { databases, account } from "../../appwrite/appwriteConfig";
 import { toast, ToastContainer } from "react-toastify";
 
-function AddWaiterComp() {
+function AddWaiterComp({ onWaiterAdded }) {
   const restaurantData = useSelector(
     (state) => state.restaurant.restaurantData
   );
@@ -95,6 +95,7 @@ function AddWaiterComp() {
       });
 
       handleDialog(); // Close dialog on success
+      onWaiterAdded();
     } catch (error) {
       toast.error("Error adding waiter", {
         position: "top-right",
