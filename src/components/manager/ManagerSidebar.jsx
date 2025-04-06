@@ -56,22 +56,22 @@ function ManagerSidebar() {
       icon: <MdOutlineTableRestaurant size={22} />,
     },
     {
-      path: "",
+      path: "/manager-dashboard/waiters",
       name: "Waiters",
       icon: <MdOutlinePerson size={22} />,
     },
     {
-      path: "",
+      path: "/manager-dashboard/menu",
       name: "Menu",
       icon: <MdRestaurantMenu size={22} />,
     },
     {
-      path: "",
+      path: "/manager-dashboard/orders",
       name: "Orders",
       icon: <TbInvoice size={22} />,
     },
     {
-      path: "",
+      path: "/manager-dashboard/payments",
       name: "Payments",
       icon: <MdOutlinePayment size={22} />,
     },
@@ -88,7 +88,7 @@ function ManagerSidebar() {
         </div>
 
         <div className="flex flex-col justify-between h-[93%] w-full">
-          <div className="mt-10 flex flex-col items-center md:items-start w-full">
+          <div className="mt-6 flex flex-col items-center md:items-start w-full">
             {sidebarLink.map((link, id) => (
               <Link to={link.path} key={id} className="w-full mb-2">
                 <div
@@ -132,7 +132,7 @@ function ManagerSidebar() {
             </div>
             <div className="w-full text-center lg:mt-2 drop-shadow-md">
               <p className="text-primary font-extrabold text-md px-1 lg:text-2xl hidden md:block">
-                {restaurantData.restaurant_name}
+                {restaurantData && restaurantData.restaurant_name}
               </p>
             </div>
             <div className="hidden md:flex justify-center w-full mt-2 lg:mt-4 ">
@@ -170,7 +170,7 @@ function ManagerSidebar() {
               </div>
               <div className="w-full text-center drop-shadow-md">
                 <p className="text-primary font-extrabold text-lg">
-                  {restaurantData.restaurant_name}
+                  {restaurantData && restaurantData.restaurant_name}
                 </p>
               </div>
               <div className="ms-5 mt-2">

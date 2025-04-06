@@ -55,7 +55,7 @@ function SuperAdminSidebar() {
         </div>
 
         <div className="flex flex-col justify-between h-[90%] w-full">
-          <div className="mt-10 flex flex-col items-center md:items-start w-full">
+          <div className="mt-6 flex flex-col items-center md:items-start w-full">
             {sidebarLink.map((link, id) => (
               <Link to={link.path} key={id} className="w-full mb-2">
                 <div
