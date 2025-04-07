@@ -7,6 +7,7 @@ import ManagerTables from "../pages/manager/ManagerTables";
 import ProtectedRoutes from "../components/ProtectedRoutes";
 import PublicRoutes from "../components/PublicRoutes";
 import ManagerWaiters from "../pages/manager/ManagerWaiters";
+import ManagerMenu from "../pages/manager/ManagerMenu";
 
 const routes = createBrowserRouter([
   {
@@ -32,6 +33,7 @@ const routes = createBrowserRouter([
       { path: "/manager-dashboard", element: <ManagerDashboard /> },
       { path: "/manager-dashboard/tables", element: <ManagerTables /> },
       { path: "/manager-dashboard/waiters", element: <ManagerWaiters /> },
+      { path: "/manager-dashboard/menu", element: <ManagerMenu /> },
     ],
   },
 ]);
