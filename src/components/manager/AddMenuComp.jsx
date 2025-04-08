@@ -9,7 +9,7 @@ import { databases, storage } from "../../appwrite/appwriteConfig";
 import { ID } from "appwrite";
 import { toast, ToastContainer } from "react-toastify";
 
-function AddMenuComp() {
+function AddMenuComp({ onMenuAdded }) {
   const restaurantData = useSelector(
     (state) => state.restaurant.restaurantData
   );
@@ -114,8 +114,8 @@ function AddMenuComp() {
         }
       );
 
-      toast.success("Menu added successfully!");
       handleDialog();
+      onMenuAdded();
     } catch (error) {
       console.error("Error adding menu:", error);
       toast.error("Error adding menu");
