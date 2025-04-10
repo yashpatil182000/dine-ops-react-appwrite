@@ -9,7 +9,7 @@ function Button({
   return (
     <>
       <button
-        className={`relative px-5 py-1 overflow-hidden rounded-lg ${bgColor} ${textColor} transition-all duration-500 before:absolute before:inset-0 before:bg-white/20 before:scale-0 hover:before:scale-150 text-sm font-semibold`}
+        className={`relative px-5 py-1 overflow-hidden rounded-lg ${bgColor} ${textColor} transition-all duration-500 before:absolute before:inset-0 before:bg-white/20 before:scale-0 hover:before:scale-150 text-sm font-semibold cursor-pointer`}
         onClick={onClick}
       >
         {text || "Button"}
