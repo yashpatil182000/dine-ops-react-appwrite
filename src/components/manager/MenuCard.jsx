@@ -1,10 +1,14 @@
-import React from "react";
+import { Dialog } from "@mui/material";
+import React, { useState } from "react";
 import { BiFoodTag } from "react-icons/bi";
 
-function MenuCard({ imageURL, iconColor, name }) {
+function MenuCard({ imageURL, iconColor, name, onClick }) {
   return (
     <>
-      <div className="bg-secondary flex flex-col items-center gap-2  pt-1 pb-3  w-[215px] lg:w-[250px] rounded-xl shadow-lg shadow-black/10 relative group hover:shadow-xl hover:shadow-primary/20 duration-300">
+      <div
+        onClick={onClick}
+        className="bg-secondary flex flex-col items-center gap-2  pt-1 pb-3  w-[215px] lg:w-[250px] lg:h-[240px] h-[220px] rounded-xl shadow-lg shadow-black/10 relative group hover:shadow-xl hover:shadow-primary/20 duration-300 cursor-pointer"
+      >
         <div className="absolute top-3 right-6">
           <BiFoodTag size={25} color={iconColor} />
         </div>{" "}

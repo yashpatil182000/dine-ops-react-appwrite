@@ -42,8 +42,6 @@ function ManagerTables() {
     fetchtables();
   }, []);
 
-  console.log("tablesss", tableList);
-
   return (
     <>
       <ToastContainer />

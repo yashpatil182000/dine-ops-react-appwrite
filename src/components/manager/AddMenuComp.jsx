@@ -102,7 +102,7 @@ function AddMenuComp({ onMenuAdded }) {
             dish_description: formData.aboutDish,
             price: Number(formData.price),
             isVeg: formData.type,
-            catagories: formData.category,
+            categories: formData.category,
             available: formData.availability,
             imgURL: imageUrl,
           }
