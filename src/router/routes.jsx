@@ -9,6 +9,8 @@ import PublicRoutes from "../components/PublicRoutes";
 import ManagerWaiters from "../pages/manager/ManagerWaiters";
 import ManagerMenu from "../pages/manager/ManagerMenu";
 import ManagerKitchen from "../pages/manager/ManagerKitchen";
+import KitchenDashboard from "../pages/kitchen/KitchenDashboard";
+import WaiterDashboard from "../pages/waiter/WaiterDashboard";
 
 const routes = createBrowserRouter([
   {
@@ -37,6 +39,14 @@ const routes = createBrowserRouter([
       { path: "/manager-dashboard/kitchen", element: <ManagerKitchen /> },
       { path: "/manager-dashboard/menu", element: <ManagerMenu /> },
     ],
+  },
+  {
+    element: <ProtectedRoutes allowedRoles={["kitchen"]} />,
+    children: [{ path: "/kitchen-dashboard", element: <KitchenDashboard /> }],
+  },
+  {
+    element: <ProtectedRoutes allowedRoles={["waiter"]} />,
+    children: [{ path: "/waiter-dashboard", element: <WaiterDashboard /> }],
   },
 ]);
 export default routes;

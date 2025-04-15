@@ -120,7 +120,13 @@ function Login() {
         to={
           userData.role === "super-admin"
             ? "/super-admin-dashboard"
-            : "/manager-dashboard"
+            : userData.role === "manager"
+            ? "/manager-dashboard"
+            : userData.role === "kitchen"
+            ? "/kitchen-dashboard"
+            : userData.role === "waiter"
+            ? "/waiter-dashboard"
+            : null
         }
         replace
       />

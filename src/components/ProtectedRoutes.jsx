@@ -10,11 +10,18 @@ function ProtectedRoutes({ allowedRoles }) {
   }
 
   if (!allowedRoles.includes(userData.role)) {
-    return userData.role === "super-admin" ? (
-      <Navigate to="/super-admin-dashboard" replace />
-    ) : (
-      <Navigate to="/manager-dashboard" replace />
-    );
+    switch (userData.role) {
+      case "super-admin":
+        return <Navigate to="/super-admin-dashboard" replace />;
+      case "manager":
+        return <Navigate to="/manager-dashboard" replace />;
+      case "kitchen":
+        return <Navigate to="/kitchen-dashboard" replace />;
+      case "waiter":
+        return <Navigate to="/waiter-dashboard" replace />;
+      default:
+        return <Navigate to="/" replace />; // or a Not Authorized page
+    }
   }
 
   return <Outlet />;
