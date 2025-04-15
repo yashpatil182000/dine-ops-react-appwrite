@@ -7,8 +7,11 @@ import {
   MdOutlinePerson,
   MdRestaurantMenu,
   MdOutlinePayment,
+  MdGroups,
 } from "react-icons/md";
 import { TbInvoice } from "react-icons/tb";
+import { LuChefHat } from "react-icons/lu";
+import { IoIosArrowDropright } from "react-icons/io";
 
 import ManagerProfile from "../../assets/manager-profile2.png";
 
@@ -55,11 +58,11 @@ function ManagerSidebar() {
       name: "Tables",
       icon: <MdOutlineTableRestaurant size={22} />,
     },
-    {
-      path: "/manager-dashboard/waiters",
-      name: "Waiters",
-      icon: <MdOutlinePerson size={22} />,
-    },
+    // {
+    //   path: "/manager-dashboard/waiters",
+    //   name: "Waiters",
+    //   icon: <MdOutlinePerson size={22} />,
+    // },
     {
       path: "/manager-dashboard/menu",
       name: "Menu",
@@ -70,12 +73,14 @@ function ManagerSidebar() {
       name: "Orders",
       icon: <TbInvoice size={22} />,
     },
-    {
-      path: "/manager-dashboard/payments",
-      name: "Payments",
-      icon: <MdOutlinePayment size={22} />,
-    },
+    // {
+    //   path: "/manager-dashboard/payments",
+    //   name: "Payments",
+    //   icon: <MdOutlinePayment size={22} />,
+    // },
   ];
+
+  const [staffOpen, setStaffOpen] = useState(false);
 
   return (
     <>
@@ -106,6 +111,78 @@ function ManagerSidebar() {
                 </div>
               </Link>
             ))}
+            {/* ---- Staff Link ---- */}
+            <div className="w-full mb-2">
+              <div
+                onClick={() => setStaffOpen(!staffOpen)}
+                className={`flex items-center justify-center md:justify-start md:px-3 gap-3 py-2 rounded-lg text-gray-500 hover:bg-secondary hover:text-primary hover:font-semibold duration-200 cursor-pointer
+                ${
+                  location.pathname.includes("/manager-dashboard/waiters") ||
+                  location.pathname.includes("/manager-dashboard/kitchen")
+                    ? "bg-secondary text-primary font-semibold"
+                    : ""
+                }`}
+              >
+                <span className="text-lg">
+                  <MdGroups size={22} />
+                </span>
+                <p className="hidden md:block">Staff</p>
+                <span
+                  className="ml-auto hidden md:block transition-transform duration-300"
+                  style={{
+                    transform: staffOpen ? "rotate(90deg)" : "rotate(0deg)",
+                  }}
+                >
+                  <IoIosArrowDropright size={22} />
+                </span>
+              </div>
+
+              <div
+                className={`md:ml-6 lg:ml-8 overflow-hidden transition-all duration-300 ease-in-out 
+                            ${
+                              staffOpen
+                                ? "max-h-40 opacity-100 scale-100"
+                                : "max-h-0 opacity-0 scale-95"
+                            }`}
+              >
+                <div className="mt-1 flex flex-col gap-1 text-sm text-gray-600">
+                  <Link to="/manager-dashboard/waiters">
+                    <div
+                      className={`flex items-center justify-center md:justify-start md:px-3  gap-3 py-2 rounded-lg text-gray-500 
+                  hover:bg-secondary hover:text-primary hover:font-semibold duration-200 
+                  ${
+                    location.pathname === "/manager-dashboard/waiters"
+                      ? "bg-secondary text-primary font-semibold"
+                      : ""
+                  }`}
+                    >
+                      <span className="text-lg">
+                        <MdOutlinePerson size={22} />
+                      </span>
+
+                      <p className="hidden md:block">Waiters</p>
+                    </div>
+                  </Link>
+                  <Link to="/manager-dashboard/kitchen">
+                    <div
+                      className={`flex items-center justify-center md:justify-start md:px-3  gap-3 py-2 rounded-lg text-gray-500 
+                  hover:bg-secondary hover:text-primary hover:font-semibold duration-200 
+                  ${
+                    location.pathname === "/manager-dashboard/kitchen"
+                      ? "bg-secondary text-primary font-semibold"
+                      : ""
+                  }`}
+                    >
+                      <span className="text-lg">
+                        <LuChefHat size={22} />
+                      </span>
+
+                      <p className="hidden md:block">Kitchen</p>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="bg-secondary py-3 rounded-lg w-full mx-auto relative hidden md:block shadow-md shadow-stone-300 ">
