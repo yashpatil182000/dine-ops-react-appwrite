@@ -11,12 +11,18 @@ import ManagerMenu from "../pages/manager/ManagerMenu";
 import ManagerKitchen from "../pages/manager/ManagerKitchen";
 import KitchenDashboard from "../pages/kitchen/KitchenDashboard";
 import WaiterDashboard from "../pages/waiter/WaiterDashboard";
+import CustomerLandingPage from "../pages/customer/CustomerLandingPage";
 
 const routes = createBrowserRouter([
   {
     path: "",
     element: <PublicRoutes />, // Wrap Login inside PublicRoute
     children: [{ path: "", element: <Login /> }],
+  },
+  {
+    
+    path: "/customer",
+    element: <CustomerLandingPage />,
   },
 
   {

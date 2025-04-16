@@ -20,11 +20,11 @@ function ManagerTables() {
 
   const fetchtables = async () => {
     let promise = databases.listDocuments(
-      import.meta.env.VITE_APPWRITE_DATABASE_ID, // replace with your DB ID
-      import.meta.env.VITE_APPWRITE_TABLES_COLLECTION_ID, // replace with your Table
+      import.meta.env.VITE_APPWRITE_DATABASE_ID, 
+      import.meta.env.VITE_APPWRITE_TABLES_COLLECTION_ID, 
       [
         Query.equal("restaurant_id", restaurantData?.$id),
-        Query.orderAsc("table_no"), // this should be outside of Query.and
+        Query.orderAsc("table_no"), 
       ]
     );
 
@@ -41,6 +41,8 @@ function ManagerTables() {
   useEffect(() => {
     fetchtables();
   }, []);
+
+  console.log(tableList);
 
   return (
     <>
@@ -61,9 +63,12 @@ function ManagerTables() {
           </div>
           <div className="mt-8">
             {tableList?.length <= 0 ? (
-              <AddTableComp />
+              <AddTableComp onTablesAdded={fetchtables} />
             ) : (
-              <TableListView tables={tableList} />
+              <TableListView
+                tables={tableList}
+                restaurantName={restaurantData.restaurant_name}
+              />
             )}
           </div>
         </div>

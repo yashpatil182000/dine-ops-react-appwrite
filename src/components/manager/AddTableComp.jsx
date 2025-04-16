@@ -11,7 +11,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { databases } from "../../appwrite/appwriteConfig";
 import { ID } from "appwrite";
 
-function AddTableComp() {
+function AddTableComp({ onTablesAdded }) {
   const restaurantData = useSelector(
     (state) => state.restaurant.restaurantData
   );
@@ -54,12 +54,13 @@ function AddTableComp() {
       for (let i = 1; i <= count; i++) {
         const tableData = {
           restaurant_id: restaurantId,
-          table_no: i, // unique-ish table number
+          table_no: i,
+          qr_url: `${window.location.origin}/customer?restaurantId=${restaurantId}&table=${i}`,
         };
 
         const promise = databases.createDocument(
-          import.meta.env.VITE_APPWRITE_DATABASE_ID, // replace with your DB ID
-          import.meta.env.VITE_APPWRITE_TABLES_COLLECTION_ID, // replace with your Table Collection ID
+          import.meta.env.VITE_APPWRITE_DATABASE_ID,
+          import.meta.env.VITE_APPWRITE_TABLES_COLLECTION_ID,
           ID.unique(),
           tableData
         );
@@ -75,7 +76,8 @@ function AddTableComp() {
         isLoading: false,
         autoClose: 3000,
       });
-      setCount(0); // reset count
+      setCount(0);
+      onTablesAdded(); 
       setOpen(false); // close modal
     } catch (error) {
       console.error("Error adding tables:", error);
