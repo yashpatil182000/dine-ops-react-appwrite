@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import { motion } from "framer-motion";
+
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { databases } from "../../appwrite/appwriteConfig";
@@ -17,6 +19,7 @@ function CustomerSplashScreen() {
   const params = new URLSearchParams(location.search);
   const restaurantId = params.get("restaurantId");
   const tableNo = params.get("table");
+  const restaurantName = params.get("restaurantName");
 
   const dispatch = useDispatch();
   const [restaurant, setRestaurant] = useState();
@@ -69,20 +72,65 @@ function CustomerSplashScreen() {
     fetchAllInfo();
     const timer = setTimeout(() => {
       navigate("/customer/landing");
-    }, 3000);
+    }, 4000);
     return () => clearTimeout(timer);
   }, []);
 
+  const popIn = {
+    hidden: { scale: 0, opacity: 0 },
+    visible: (i) => ({
+      scale: [0, 1.4, 1],
+      opacity: 1,
+      transition: {
+        delay: i * 0.2,
+        duration: 0.8,
+        ease: "easeOut",
+      },
+    }),
+  };
+
   return (
     <>
-      <div className="flex items-center justify-center h-screen bg-white flex-col">
-        <h1 className="text-3xl font-bold text-gray-800 animate-pulse">
-          Welcome to {restaurant?.restaurant_name}
-        </h1>
-        <p className="text-sm text-gray-500 mt-2">
+      <motion.div
+        className="w-full flex items-center justify-center h-screen bg-gradient-to-br from-white to-gray-100 flex-col"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <motion.p
+          className="text-md text-gray-500 mt-2 tracking-wide"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.6 }}
+        >
+          Welcome to
+        </motion.p>
+
+        <div className="flex mt-2">
+          {[...restaurantName].map((char, i) => (
+            <motion.span
+              key={i}
+              className="text-4xl font-bold text-gray-800"
+              variants={popIn}
+              initial="hidden"
+              animate="visible"
+              custom={i}
+              style={{ display: "inline-block", marginRight: "2px" }}
+            >
+              {char === " " ? "\u00A0" : char}
+            </motion.span>
+          ))}
+        </div>
+
+        <p
+          className="text-sm text-gray-500 mt-4 tracking-wide animate-pulse"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
           Setting up your experience...
         </p>
-      </div>{" "}
+      </motion.div>
     </>
   );
 }
