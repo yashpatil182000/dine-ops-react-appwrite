@@ -55,7 +55,7 @@ function AddTableComp({ onTablesAdded }) {
         const tableData = {
           restaurant_id: restaurantId,
           table_no: i,
-          qr_url: `${window.location.origin}/customer?restaurantId=${restaurantId}&table=${i}`,
+          qr_url: `${window.location.origin}/customer?restaurantId=${restaurantId}&table=${i}&restaurantName=${restaurantData.restaurant_name}`,
         };
 
         const promise = databases.createDocument(
@@ -77,7 +77,7 @@ function AddTableComp({ onTablesAdded }) {
         autoClose: 3000,
       });
       setCount(0);
-      onTablesAdded(); 
+      onTablesAdded();
       setOpen(false); // close modal
     } catch (error) {
       console.error("Error adding tables:", error);
