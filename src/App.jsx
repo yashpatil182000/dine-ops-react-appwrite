@@ -12,6 +12,10 @@ function App() {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   useEffect(() => {
+    if (window.location.pathname.startsWith("/customer")) {
+      setLoading(false);
+      return;
+    }
     const checkActiveSession = async () => {
       try {
         const authUser = await account.get();
@@ -65,7 +69,7 @@ function App() {
     };
 
     checkActiveSession();
-  }, [dispatch]);
+  }, [dispatch, location.pathname]);
 
   if (loading) {
     return (

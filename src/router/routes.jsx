@@ -12,6 +12,7 @@ import ManagerKitchen from "../pages/manager/ManagerKitchen";
 import KitchenDashboard from "../pages/kitchen/KitchenDashboard";
 import WaiterDashboard from "../pages/waiter/WaiterDashboard";
 import CustomerLandingPage from "../pages/customer/CustomerLandingPage";
+import CustomerSplashScreen from "../pages/customer/CustomerSplashScreen";
 
 const routes = createBrowserRouter([
   {
@@ -20,8 +21,11 @@ const routes = createBrowserRouter([
     children: [{ path: "", element: <Login /> }],
   },
   {
-    
     path: "/customer",
+    element: <CustomerSplashScreen />,
+  },
+  {
+    path: "/customer/landing",
     element: <CustomerLandingPage />,
   },
 
