@@ -4,6 +4,7 @@ import storage from "redux-persist/lib/storage";
 import authReducer from "./authSlice";
 import restaurantReducer from "./restaurantSlice";
 import customerReducer from "./customerSlice";
+import cartReducer from "./cartSlice";
 import { combineReducers } from "redux";
 import {
   FLUSH,
@@ -17,13 +18,14 @@ import {
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["customer"], // only persist customer slice
+  whitelist: ["customer", "cart"], // only persist customer slice
 };
 
 const rootReducer = combineReducers({
   auth: authReducer,
   restaurant: restaurantReducer,
   customer: customerReducer,
+  cart: cartReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
