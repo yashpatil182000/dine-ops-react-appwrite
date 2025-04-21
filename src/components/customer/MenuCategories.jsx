@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import MenuCard from "./MenuCard";
+import { motion } from "framer-motion";
 
 function MenuCategories() {
   const menus = useSelector((state) => state.customer.menus);
 
-  const [category, setCategory] = useState("Break Fast");
+  const [category, setCategory] = useState("Breakfast");
 
   const handleCategory = (cat) => {
     setCategory(cat);
@@ -26,7 +27,9 @@ function MenuCategories() {
       <div className="mt-10 flex justify-center flex-wrap gap-2">
         {categories.map((cat, i) => (
           <div
-            className="bg-stone-200 px-4 py-1 rounded-lg"
+            className={`${
+              cat.value === category ? "bg-primary text-white" : "bg-stone-200"
+            }  px-4 py-1 rounded-lg transition-all duration-700`}
             key={i}
             onClick={() => handleCategory(cat.value)}
           >
@@ -35,7 +38,13 @@ function MenuCategories() {
         ))}
       </div>
 
-      <div className="mt-5 flex flex-col px-2 gap-4">
+      <motion.div
+        key={category}
+        className="mt-5 flex flex-col px-2 gap-4"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+      >
         {filteredMenus.length > 0 ? (
           filteredMenus.map((menu, idx) => (
             <MenuCard
@@ -44,6 +53,7 @@ function MenuCategories() {
               description={menu.dish_description}
               price={menu.price}
               image={menu.imgURL.replace("/preview", "/view")}
+              iconColor={menu?.isVeg ? "#1D9825" : "#98361D"}
             />
           ))
         ) : (
@@ -51,7 +61,7 @@ function MenuCategories() {
             {category} currently not available
           </p>
         )}
-      </div>
+      </motion.div>
     </>
   );
 }
