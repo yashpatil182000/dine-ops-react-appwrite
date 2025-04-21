@@ -73,46 +73,60 @@ function AddMenuComp({ onMenuAdded }) {
 
     try {
       const file = formData.image;
-      const uploadedFile = await toast.promise(
-        storage.createFile(
-          import.meta.env.VITE_APPWRITE_MENU_IMAGE_BUCKET_ID,
-          ID.unique(),
-          file
-        ),
-        {
-          pending: "Uploading image...",
-          success: "Image uploaded!",
-          error: "Image upload failed!",
-        }
+
+      const uploadPromise = storage.createFile(
+        import.meta.env.VITE_APPWRITE_MENU_IMAGE_BUCKET_ID,
+        ID.unique(),
+        file
       );
+
+      const uploadedFile = await toast.promise(uploadPromise, {
+        pending: "Uploading image...",
+        success: {
+          render: "Image uploaded!",
+          autoClose: 3000, // 3 seconds
+        },
+        error: {
+          render: "Image upload failed!",
+          autoClose: 5000,
+        },
+      });
 
       const imageUrl = storage.getFilePreview(
         import.meta.env.VITE_APPWRITE_MENU_IMAGE_BUCKET_ID,
         uploadedFile.$id
       ).href;
 
-      await toast.promise(
-        databases.createDocument(
-          import.meta.env.VITE_APPWRITE_DATABASE_ID,
-          import.meta.env.VITE_APPWRITE_MENU_COLLECTION_ID,
-          ID.unique(),
-          {
-            restaurant_id: restaurantData?.$id,
-            dish_name: formData.dishName,
-            dish_description: formData.aboutDish,
-            price: Number(formData.price),
-            isVeg: formData.type,
-            categories: formData.category,
-            available: formData.availability,
-            imgURL: imageUrl,
-          }
-        ),
+      const createPromise = databases.createDocument(
+        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        import.meta.env.VITE_APPWRITE_MENU_COLLECTION_ID,
+        ID.unique(),
         {
-          pending: "Adding menu item...",
-          success: "Menu added successfully!",
-          error: "Error adding menu item!",
+          restaurant_id: restaurantData?.$id,
+          dish_name: formData.dishName,
+          dish_description: formData.aboutDish,
+          price: Number(formData.price),
+          isVeg: formData.type,
+          categories: formData.category,
+          available: formData.availability,
+          imgURL: imageUrl,
         }
       );
+
+      await toast.promise(createPromise, {
+        pending: {
+          render: "Adding menu item",
+          autoClose: 3000,
+        },
+        success: {
+          render: "Menu added successfully!",
+          autoClose: 3000,
+        },
+        error: {
+          render: "Error adding menu item!",
+          autoClose: 5000,
+        },
+      });
 
       handleDialog();
       onMenuAdded();

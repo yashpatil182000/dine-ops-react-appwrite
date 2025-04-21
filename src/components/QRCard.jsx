@@ -40,7 +40,7 @@ function QRCard({ restaurantName, tableNo, qrUrl }) {
 
       <button
         onClick={handleDownload}
-        className="mt-2 px-3 py-1 rounded bg-primary text-white text-sm hover:bg-orange-600"
+        className="mt-8 px-3 py-1 rounded bg-primary text-white text-sm hover:bg-orange-600"
       >
         Download
       </button>
