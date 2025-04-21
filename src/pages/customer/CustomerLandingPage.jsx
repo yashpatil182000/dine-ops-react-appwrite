@@ -1,14 +1,18 @@
 import React from "react";
-import { useLocation, useParams } from "react-router-dom";
-
+import { useSelector } from "react-redux";
+import CustomerNavbar from "../../components/customer/CustomerNavbar";
+import MenuCategories from "../../components/customer/MenuCategories";
 function CustomerLandingPage() {
-  const location = useLocation();
-  const params = new URLSearchParams(location.search);
-  const restaurantId = params.get("restaurantId");
-  const table = params.get("table");
+  const restaurantData = useSelector((state) => state.customer.restaurantInfo);
 
-
-  return <>Customer Landing Page</>;
+  return (
+    <>
+      <div className="w-full">
+        <CustomerNavbar />
+        <MenuCategories />
+      </div>
+    </>
+  );
 }
 
 export default CustomerLandingPage;
