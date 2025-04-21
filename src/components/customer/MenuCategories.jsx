@@ -2,14 +2,22 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import MenuCard from "./MenuCard";
 import { motion } from "framer-motion";
+import { setCartItem } from "../../store/cartSlice";
+import { useDispatch } from "react-redux";
 
 function MenuCategories() {
   const menus = useSelector((state) => state.customer.menus);
+
+  const dispatch = useDispatch();
 
   const [category, setCategory] = useState("Breakfast");
 
   const handleCategory = (cat) => {
     setCategory(cat);
+  };
+
+  const handleAddToCart = (menu) => {
+    dispatch(setCartItem(menu));
   };
 
   const filteredMenus = menus.filter((menu) =>
@@ -40,7 +48,7 @@ function MenuCategories() {
 
       <motion.div
         key={category}
-        className="mt-5 flex flex-col px-2 gap-4"
+        className="mt-5 mb-24 flex flex-col px-4 gap-4"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
@@ -54,6 +62,7 @@ function MenuCategories() {
               price={menu.price}
               image={menu.imgURL.replace("/preview", "/view")}
               iconColor={menu?.isVeg ? "#1D9825" : "#98361D"}
+              onClick={() => handleAddToCart(menu)}
             />
           ))
         ) : (

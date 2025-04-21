@@ -13,6 +13,7 @@ import KitchenDashboard from "../pages/kitchen/KitchenDashboard";
 import WaiterDashboard from "../pages/waiter/WaiterDashboard";
 import CustomerLandingPage from "../pages/customer/CustomerLandingPage";
 import CustomerSplashScreen from "../pages/customer/CustomerSplashScreen";
+import CustomerCart from "../pages/customer/CustomerCart";
 
 const routes = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const routes = createBrowserRouter([
   {
     path: "/customer/landing",
     element: <CustomerLandingPage />,
+  },
+  {
+    path: "/customer/cart",
+    element: <CustomerCart />,
   },
 
   {
