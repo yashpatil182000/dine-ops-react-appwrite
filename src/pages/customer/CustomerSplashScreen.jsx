@@ -63,6 +63,11 @@ function CustomerSplashScreen() {
         const fetchedMenus = menuResponce.documents;
         dispatch(setMenu(fetchedMenus));
       }
+
+      const timer = setTimeout(() => {
+        navigate("/customer/landing");
+      }, 3000);
+      return () => clearTimeout(timer);
     } catch (error) {
       console.log("Error Fetching All Information :: ", error);
     }
@@ -70,10 +75,6 @@ function CustomerSplashScreen() {
 
   useEffect(() => {
     fetchAllInfo();
-    const timer = setTimeout(() => {
-      navigate("/customer/landing");
-    }, 4000);
-    return () => clearTimeout(timer);
   }, []);
 
   const popIn = {
