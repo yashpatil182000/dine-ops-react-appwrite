@@ -6,7 +6,6 @@ import CartOverview from "../../components/customer/CartOverview";
 function CustomerLandingPage() {
   const restaurantData = useSelector((state) => state.customer.restaurantInfo);
   const cartData = useSelector((state) => state.cart.cart);
-  console.log(cartData);
 
   return (
     <>
@@ -15,7 +14,7 @@ function CustomerLandingPage() {
         <MenuCategories />
         {cartData.length > 0 && (
           <div className="w-full fixed bottom-0">
-            <CartOverview count = {cartData.length} />
+            <CartOverview count={cartData.length} />
           </div>
         )}
       </div>

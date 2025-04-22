@@ -31,7 +31,7 @@ function CartOverview({ count }) {
         className="bg-primary p-3"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, ease: "easeOut" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <Link to={"/customer/cart"}>
           <div className="flex items-center justify-center gap-3">

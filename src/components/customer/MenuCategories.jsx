@@ -17,7 +17,7 @@ function MenuCategories() {
   };
 
   const handleAddToCart = (menu) => {
-    dispatch(setCartItem(menu));
+    dispatch(setCartItem({ ...menu, quantity: 1 }));
   };
 
   const filteredMenus = menus.filter((menu) =>
