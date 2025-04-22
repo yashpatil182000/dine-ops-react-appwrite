@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import CustomerNavbar from "../../components/customer/CustomerNavbar";
 import IconTextComponent from "../../components/IconTextComponent";
@@ -6,6 +6,7 @@ import { FaCartShopping, FaPlus } from "react-icons/fa6";
 import CartItem from "../../components/customer/CartItem";
 import { decreaseQuantity, increaseQuantity } from "../../store/cartSlice";
 import { Link } from "react-router-dom";
+import PlaceOrderComp from "../../components/customer/PlaceOrderComp";
 
 function CustomerCart() {
   const cartData = useSelector((state) => state.cart.cart);
@@ -21,6 +22,11 @@ function CustomerCart() {
     dispatch(decreaseQuantity(id));
   };
 
+  const cartTotal = cartData.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+
   return (
     <>
       <CustomerNavbar />
@@ -31,7 +37,7 @@ function CustomerCart() {
             text={"Your Cart"}
           />
         </div>
-        <div className="mt-5 bg-white p-3">
+        <div className="mt-5 bg-white p-3 mb-20">
           {cartData.map((item, index) => (
             <CartItem
               key={index}
@@ -44,12 +50,17 @@ function CustomerCart() {
             />
           ))}
           <Link to={"/customer/landing"}>
-            <div className="pt-3 flex gap-2 items-center text-stone-600">
+            <div className="pt-3 flex gap-2 items-center text-primary">
               <FaPlus size={15} />
               <p className="text-sm font-bold">Add More Items</p>
             </div>
           </Link>
         </div>
+        {cartData.length > 0 ? (
+          <div className="w-full fixed bottom-0">
+            <PlaceOrderComp cartTotal={cartTotal} />
+          </div>
+        ) : null}
       </div>
     </>
   );

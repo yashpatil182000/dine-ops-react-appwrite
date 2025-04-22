@@ -38,7 +38,7 @@ function CartItem({
             </div>
           </div>
           <div>
-            <p className="text-sm font-bold">Total ₹ {price * quantity}</p>
+            <p className="text-sm font-bold">₹ {price * quantity}</p>
           </div>
         </div>
       </div>
