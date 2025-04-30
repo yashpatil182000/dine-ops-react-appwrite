@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { motion } from "framer-motion";
-import confetti from "canvas-confetti";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { emptyCart } from "../../store/cartSlice";
@@ -48,11 +47,11 @@ function CartOverview({ count }) {
           </div>
           <p className="text-center text-sm text-white ">Tap to see cart</p>
         </Link>
-        <div>
+        {/* <div>
           <button className="bg-white" onClick={() => dispatch(emptyCart())}>
             emptyCart
           </button>
-        </div>
+        </div> */}
       </motion.div>
     </>
   );

@@ -4,16 +4,28 @@ import CustomerNavbar from "../../components/customer/CustomerNavbar";
 import IconTextComponent from "../../components/IconTextComponent";
 import { FaCartShopping, FaPlus } from "react-icons/fa6";
 import CartItem from "../../components/customer/CartItem";
-import { decreaseQuantity, increaseQuantity } from "../../store/cartSlice";
-import { Link } from "react-router-dom";
+import {
+  decreaseQuantity,
+  emptyCart,
+  increaseQuantity,
+} from "../../store/cartSlice";
+import { Link, useNavigate } from "react-router-dom";
 import PlaceOrderComp from "../../components/customer/PlaceOrderComp";
+import { databases } from "../../appwrite/appwriteConfig";
+import { ID } from "appwrite";
+import { clearOrder, setOrder } from "../../store/orderSlice";
 
 function CustomerCart() {
+  const restaurantData = useSelector((state) => state.customer.restaurantInfo);
+  const tableData = useSelector((state) => state.customer.tableInfo);
   const cartData = useSelector((state) => state.cart.cart);
-
-  console.log(cartData);
-
+  console.log("restaurantData", restaurantData);
+  console.log("tableData", tableData);
+  console.log("cartData", cartData);
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
   const handleIncreaseQty = (id) => {
     dispatch(increaseQuantity(id));
   };
@@ -26,6 +38,42 @@ function CustomerCart() {
     (total, item) => total + item.price * item.quantity,
     0
   );
+
+  const onPlaceorder = async () => {
+    if (cartData.length <= 0) {
+      return;
+    }
+
+    try {
+      const orderResponce = await databases.createDocument(
+        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        import.meta.env.VITE_APPWRITE_ORDERS_COLLECTION_ID,
+        ID.unique(),
+        {
+          restaurant_id: restaurantData.$id,
+          table_id: tableData.$id,
+          items: cartData.map((item) =>
+            JSON.stringify({
+              ...item,
+              status: "Pending",
+            })
+          ),
+          status: "Pending",
+          total_price: cartTotal,
+          table_no: tableData.table_no,
+        }
+      );
+      console.log("orderResponce", orderResponce);
+      if (orderResponce) {
+        dispatch(setOrder(orderResponce));
+        dispatch(emptyCart());
+        navigate("/customer/landing");
+        // setTimeout(() => navigate("/customer/orderSummary"), 2000);
+      }
+    } catch (error) {
+      console.log("Failed to place order :: ", error);
+    }
+  };
 
   return (
     <>
@@ -58,7 +106,7 @@ function CustomerCart() {
         </div>
         {cartData.length > 0 ? (
           <div className="w-full fixed bottom-0">
-            <PlaceOrderComp cartTotal={cartTotal} />
+            <PlaceOrderComp onclick={onPlaceorder} cartTotal={cartTotal} />
           </div>
         ) : null}
       </div>

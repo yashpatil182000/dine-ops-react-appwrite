@@ -5,6 +5,7 @@ import authReducer from "./authSlice";
 import restaurantReducer from "./restaurantSlice";
 import customerReducer from "./customerSlice";
 import cartReducer from "./cartSlice";
+import orderReducer from "./orderSlice";
 import { combineReducers } from "redux";
 import {
   FLUSH,
@@ -18,7 +19,7 @@ import {
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["customer", "cart"], // only persist customer slice
+  whitelist: ["customer", "cart", "order"], // only persist customer slice
 };
 
 const rootReducer = combineReducers({
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   restaurant: restaurantReducer,
   customer: customerReducer,
   cart: cartReducer,
+  order: orderReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

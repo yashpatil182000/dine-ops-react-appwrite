@@ -14,6 +14,8 @@ import WaiterDashboard from "../pages/waiter/WaiterDashboard";
 import CustomerLandingPage from "../pages/customer/CustomerLandingPage";
 import CustomerSplashScreen from "../pages/customer/CustomerSplashScreen";
 import CustomerCart from "../pages/customer/CustomerCart";
+import CustomerOrderSummary from "../pages/customer/CustomerOrderSummary";
+import CustomerLogin from "../pages/customer/CustomerLogin";
 
 const routes = createBrowserRouter([
   {
@@ -32,6 +34,14 @@ const routes = createBrowserRouter([
   {
     path: "/customer/cart",
     element: <CustomerCart />,
+  },
+  {
+    path: "/customer/orderSummary",
+    element: <CustomerOrderSummary />,
+  },
+  {
+    path: "/customer/login",
+    element: <CustomerLogin />,
   },
 
   {

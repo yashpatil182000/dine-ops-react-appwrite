@@ -4,13 +4,13 @@ import CustomerNavbar from "../../components/customer/CustomerNavbar";
 import MenuCategories from "../../components/customer/MenuCategories";
 import CartOverview from "../../components/customer/CartOverview";
 function CustomerLandingPage() {
-  const restaurantData = useSelector((state) => state.customer.restaurantInfo);
   const cartData = useSelector((state) => state.cart.cart);
 
   return (
     <>
       <div className="w-full">
         <CustomerNavbar />
+
         <MenuCategories />
         {cartData.length > 0 && (
           <div className="w-full fixed bottom-0">

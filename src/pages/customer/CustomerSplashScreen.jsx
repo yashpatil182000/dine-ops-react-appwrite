@@ -65,7 +65,7 @@ function CustomerSplashScreen() {
       }
 
       const timer = setTimeout(() => {
-        navigate("/customer/landing");
+        navigate("/customer/login");
       }, 3000);
       return () => clearTimeout(timer);
     } catch (error) {

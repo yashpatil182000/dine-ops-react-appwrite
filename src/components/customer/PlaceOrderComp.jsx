@@ -1,7 +1,7 @@
 import React from "react";
 import { IoMdArrowDropright } from "react-icons/io";
 import { motion } from "framer-motion";
-function PlaceOrderComp({ cartTotal }) {
+function PlaceOrderComp({ cartTotal, onclick }) {
   return (
     <>
       <motion.div
@@ -15,7 +15,10 @@ function PlaceOrderComp({ cartTotal }) {
           <p className="text-primary font-bold text-lg">₹ {cartTotal}</p>
         </div>
         <div>
-          <button className="bg-primary px-5 py-2 flex items-center rounded-xl text-white">
+          <button
+            className="bg-primary px-5 py-2 flex items-center rounded-xl text-white"
+            onClick={onclick}
+          >
             Place Order{" "}
             <span>
               <IoMdArrowDropright size={22} />
