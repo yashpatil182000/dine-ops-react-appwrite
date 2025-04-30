@@ -13,9 +13,10 @@ import { MdOutlineEdit } from "react-icons/md";
 function CustomerLoginComp() {
   const [showOTPInput, setShowOTPInput] = useState(false);
   const [phone, setPhone] = useState("");
-  const [userId, setUserId] = useState("");
   const [otp, setOtp] = useState("");
   const [disableInput, setDisableInput] = useState(false);
+
+  const OTP = "00000";
 
   const handleSendOTP = () => {
     const phoneRegex = /^[6-9]\d{9}$/;
@@ -30,7 +31,15 @@ function CustomerLoginComp() {
   };
 
   const handleVerifyOTP = () => {
-    console.log(otp);
+    if (!otp) {
+      toast.error("Please Enter OTP first");
+      return;
+    }
+    if (otp === OTP) {
+      toast.success("OTP verified");
+    } else {
+      toast.error("Invalid OTP");
+    }
   };
 
   return (
